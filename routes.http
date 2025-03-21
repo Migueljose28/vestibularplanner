@@ -1,0 +1,33 @@
+POST http://127.0.0.1:3000/cronograma
+Content-Type: application/json
+
+{
+    "data": "2025-03-20",
+    "materias": ["math","mimi"],
+    "dayweek" : ["segunda"],
+    "time": 2
+}
+
+###
+
+GET  http://127.0.0.1:3000/cronograma
+
+//?search=node filtrar a pesquisa 
+//e sem ele é exibido todos os registros
+
+###
+
+PUT http://127.0.0.1:3000/cronograma/9f0a8a4c-3827-4138-80da-b21f4a5a0f6b
+Content-Type: application/json
+
+{
+     "data": "2025-03-20",
+    "materias": ["math", "dormir"],
+    "dayweek" : ["segunda"],
+    "time": 2
+}
+
+
+###
+
+DELETE http://127.0.0.1:3000/127.0.0.1:3000/cronograma/2e592b85-5781-4ea9-ad1b-f8c7592b48f5
