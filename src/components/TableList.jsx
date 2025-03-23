@@ -1,60 +1,57 @@
 
+const days = [ "Domingo","Segunda", "Terça", "Quarta", "Quinta", "Sexta","Sábado"];
+const generateHours = (start, end, sleepStart, sleepEnd) => {
+    const hours = [];
+  
+    for (let i = start; i <= end; i++) {
+      if (i > sleepStart || i < sleepEnd) {
+        console.log("sleepStart", sleepStart);
+      }else{
+        hours.push(`${String(i).padStart(2, "0")}:00`);
+      }
+    }
+  
+    return hours;
+  };
 
-const clients = [
-    {id: 1, name: "Joe Doe", email: "joedoe@gmail.com", job: "Developer", rate: "100", isactive: true},
-    {id:2,  name: "Joe1 Doe", email: "joedoe1@gmail.com", job: "Developer1", rate: "50", isactive: true},
-    {id:3, name: "Joe2 Doe", email: "joedoe2@gmail.com", job: "Developer2", rate: "46", isactive: false},
+export default function TableList({dados, className}){
 
-]
-
-
-
-
-export default function TableList(){
+    
+      const start = dados[0]?.sleepstart;
+      const end = dados[0]?.sleepend;
+      const hours = generateHours(0, 23, start, end); // Exclui horários entre 00:00 e 06:00
+     
+    
     return(
 <>
-            <div className="overflow-x-auto mt-10 rounded-box border border-base-content/5 bg-base-100">
-            <table className="table">
-                {/* head */}
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Job</th>
-                    <th>Rate</th>
-                    <th>Status</th>
-                </tr>
-               
-                </thead>
-                <tbody  className="hover">
-                {/* row 1 */}
-                {clients.map((client) => (
-                    <tr>
-                    <th>{client.id}</th>
-                    <td>{client.name}</td>
-                    <td>{client.email}</td>
-                    <td>{client.job}</td>
-                    <td>{client.rate}</td>
 
-                    <button className={`btn rounded-full w-20 ${client.isactive ? `btn-primary`: `btn-outline-primary btn-ptimary`}`}>
-                        {client.isactive ? "Active":"Inactive"}
-                    </button>
-                    <td>
-                        <button className="btn btn-primary">Update</button>
-                    </td>
-                    <td>
-                    <button className="btn btn-accent">Delete</button>
-                    </td>
+<div className= {`overflow-x-auto p-4 ${className}`}>
+      <table className="w-full border text-black border-gray-300">
+        <thead>
+          <tr>
+            <th className="border border-gray-300 p-2 bg-gray-200">Horas</th>
 
-                </tr>
-                ))}
-                </tbody>
-            </table>
-            </div>
-
-
-
+            {days.map((day) => (
+              <th key={day} className="border border-gray-300 p-2 bg-gray-200">
+                {day}
+              </th>
+              
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {hours.map((hour) => (
+            <tr key={hour}>
+              <td className="border border-gray-300 p-2 bg-gray-100">{hour}</td>
+              {days.map((day) => (
+                <td key={day + hour} className="border border-gray-300 p-2 hover:bg-gray-100"></td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div> 
+  
 </>
 
 
